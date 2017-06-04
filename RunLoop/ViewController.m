@@ -65,12 +65,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    switch (indexPath.row) {
+        case 2:
+            return 90;
+        default:
+            return 44;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,6 +89,11 @@
         case 1:
             cell.textLabel.text = self.timer.isValid ? @"Timer运行中..." : @"Timer已停止";
             break;
+        case 2:
+            cell.textLabel.text = @"UITrackingRunLoopMode下加载图片";
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(310, 15, 60, 60)];
+            [cell.contentView addSubview:imageView];
+            [imageView performSelector:@selector(setImage:) withObject:[UIImage imageNamed:@"music.png"] afterDelay:0 inModes:@[UITrackingRunLoopMode]];
     }
 
     return cell;
